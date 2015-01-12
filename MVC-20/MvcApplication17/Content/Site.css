@@ -1,0 +1,153 @@
+body
+{
+	font-size: .85em;
+	font-family: "Trebuchet MS" , Verdana, Helvetica, Sans-Serif;
+	color: #232323;
+	background-color: #fff;
+}
+
+header, footer, nav, section
+{
+	display: block;
+}
+
+/* Styles for basic forms
+-----------------------------------------------------------*/
+
+fieldset
+{
+	border: 1px solid #ddd;
+	padding: 0 1.4em 1.4em 1.4em;
+	margin: 0 0 1.5em 0;
+}
+
+legend
+{
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+textarea
+{
+	min-height: 75px;
+}
+
+.editor-label
+{
+	margin: 1em 0 0 0;
+}
+
+.editor-field
+{
+	margin: 0.5em 0 0 0;
+}
+
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error
+{
+	color: #ff0000;
+}
+
+.field-validation-valid
+{
+	display: none;
+}
+
+.input-validation-error
+{
+	border: 1px solid #ff0000;
+	background-color: #ffeeee;
+}
+
+.validation-summary-errors
+{
+	font-weight: bold;
+	color: #ff0000;
+}
+
+.validation-summary-valid
+{
+	display: none;
+}
+
+/* Styles for WebGrid
+-----------------------------------------------------------*/
+
+.webgrid
+{
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+	border-collapse: collapse;
+	font-family: Tahoma;
+	font-size: 9pt;
+}
+
+.webgrid a
+{
+	color: #000;
+}
+
+.webgrid-header
+{
+	padding: 0px 5px;
+	text-align: center;
+	border-bottom: 2px solid #739ace;
+	height: 20px;
+	border-top: 2px solid #D6E8FF;
+	border-left: 2px solid #D6E8FF;
+	border-right: 2px solid #D6E8FF;
+}
+
+.webgrid-header th
+{
+	background-color: #eaf0ff;
+	border-right: 1px solid #ddd;
+}
+
+.webgrid-footer
+{
+	padding: 6px 5px;
+	text-align: center;
+	background-color: #e8eef4;
+	border-top: 2px solid #3966A2;
+	height: 25px;
+	border-bottom: 2px solid #D6E8FF;
+	border-left: 2px solid #D6E8FF;
+	border-right: 2px solid #D6E8FF;
+}
+
+.webgrid-alternating-row
+{
+	height: 22px;
+	background-color: #f2f2f2;
+	border-bottom: 1px solid #d2d2d2;
+	border-left: 2px solid #D6E8FF;
+	border-right: 2px solid #D6E8FF;
+}
+
+.webgrid-row-style
+{
+	height: 22px;
+	border-bottom: 1px solid #d2d2d2;
+	border-left: 2px solid #D6E8FF;
+	border-right: 2px solid #D6E8FF;
+}
+
+.webgrid-selected-row
+{
+	font-weight: bold;
+}
+
+.text-align-center-col
+{
+	text-align: center;
+}
+
+.total-row
+{
+	background-color:#f9eef4;
+}

@@ -1,0 +1,21 @@
+﻿@using MvcApplication20.Resources
+@model MvcApplication20.Models.User
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<fieldset>
+    <legend>User Info (@@Home_Index_cshtml.Name)</legend>
+
+    <div class="display-label">@Home_Index_cshtml.Name</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+</fieldset>
+<fieldset>
+    <legend>User Info (@@Html.DisplayForModel)</legend>
+    @Html.DisplayForModel()
+</fieldset>

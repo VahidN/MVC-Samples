@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>@ViewBag.Msg</h2>
+
+<p>@ViewBag.ControllerTime</p>
+<p>@DateTime.Now</p>
+
+@using (Html.BeginForm())
+{
+    @Html.TextBox("parameter")
+    <input type="submit" />
+}
+
+@{ Response.WriteSubstitution(ctx => DateTime.Now.ToShortTimeString()); }

@@ -1,0 +1,144 @@
+﻿@using System.Globalization
+@model MvcApplication17.Models.RptViewModel
+           
+@{
+    ViewBag.Title = "Index";
+}
+
+@helper WebGridPageFirstItem(WebGrid grid)
+{
+    @(((grid.PageIndex + 1) * grid.RowsPerPage) - (grid.RowsPerPage - 1));
+}
+
+@helper WebGridPageLastItem(WebGrid grid)
+{
+    if (grid.TotalRowCount < (grid.PageIndex + 1 * grid.RowsPerPage))
+    {
+      @grid.TotalRowCount;
+    }
+    else
+    {
+      @((grid.PageIndex + 1) * grid.RowsPerPage);
+    }
+}
+
+<h2>Employees List</h2>
+
+@{ 
+    var grid = new WebGrid(
+        source: Model.EmployeesList,
+        canPage: true,
+        rowsPerPage: 10,
+        canSort: true,
+        defaultSort: "FirstName"
+    );
+    var salaryPageSum = 0;
+    var taxPageSum = 0;
+    var rowIndex = ((grid.PageIndex + 1) * grid.RowsPerPage) - (grid.RowsPerPage - 1);
+}
+
+<div id="container">
+    @grid.GetHtml(
+            tableStyle: "webgrid",
+            headerStyle: "webgrid-header",
+            footerStyle: "webgrid-footer",
+            alternatingRowStyle: "webgrid-alternating-row",
+            selectedRowStyle: "webgrid-selected-row",
+            rowStyle: "webgrid-row-style",
+            htmlAttributes: new { id = "MyGrid" },
+            mode: WebGridPagerModes.All,
+            columns: grid.Columns(
+                 grid.Column(header: "#",
+                             style: "text-align-center-col",
+                             format: @<text>@(rowIndex++)</text>),
+                 grid.Column(columnName: "FirstName", header: "First Name",
+                             format: @<span style='font-weight: bold'>@item.FirstName</span>,
+                             style: "text-align-center-col"),
+                 grid.Column(columnName: "LastName", header: "Last Name"),
+                 grid.Column(header: "Image",
+                             style: "text-align-center-col",
+                             format: @<text><img alt="@item.Id" src="@Url.Content("~/images/" + @item.Id + ".jpg")" /></text>),
+                 grid.Column(columnName: "AddDate", header: "Start",
+                             style: "text-align-center-col",
+                             format: item =>
+                             {
+                                 int ym = item.AddDate.Year;
+                                 int mm = item.AddDate.Month;
+                                 int dm = item.AddDate.Day;
+                                 var persianCalendar = new PersianCalendar();
+                                 int ys = persianCalendar.GetYear(new DateTime(ym, mm, dm, new GregorianCalendar()));
+                                 int ms = persianCalendar.GetMonth(new DateTime(ym, mm, dm, new GregorianCalendar()));
+                                 int ds = persianCalendar.GetDayOfMonth(new DateTime(ym, mm, dm, new GregorianCalendar()));
+                                 return ys + "/" + ms.ToString("00") + "/" + ds.ToString("00");
+
+                             }),
+                 grid.Column(columnName: "Salary", header: "Salary",
+                             format: item =>
+                             {
+                                 salaryPageSum += item.Salary;
+                                 return string.Format("${0:n0}", item.Salary);
+                             },
+                             style: "text-align-center-col"),
+                 grid.Column(header: "Tax", canSort: true,
+                             format: item =>
+                             {
+                                 var tax = item.Salary * 0.2;
+                                 taxPageSum += tax;
+                                 return string.Format("${0:n0}", tax);
+                             }),
+                 grid.Column(header: "Projects", columnName: "Projects",
+                             style: "text-align-center-col",
+                             format: item =>
+                             {
+                                 var subGrid = new WebGrid(
+                                                        source: item.Projects,
+                                                        canPage: false,
+                                                        canSort: false
+                                                        );
+                                 return subGrid.GetHtml(
+                                                        htmlAttributes: new { id = "MySubGrid" },
+                                                        tableStyle: "webgrid",
+                                                        headerStyle: "webgrid-header",
+                                                        footerStyle: "webgrid-footer",
+                                                        alternatingRowStyle: "webgrid-alternating-row",
+                                                        selectedRowStyle: "webgrid-selected-row",
+                                                        rowStyle: "webgrid-row-style"
+                                     );
+                             }),
+                 grid.Column(header: "",
+                             style: "text-align-center-col",
+                             format: item => @Html.ActionLink(linkText: "Edit", actionName: "Edit",
+                                                              controllerName: "Home", routeValues: new { id = item.Id },
+                                                              htmlAttributes: null)),
+                 grid.Column(header: "",
+                             format: @<form action="/Home/Delete/@item.Id" method="post"><input type="submit"
+                                            onclick="return confirm('Do you want to delete this record?');"
+                                            value="Delete"/></form>),
+                 grid.Column(header: "", format: item => item.GetSelectLink("Select"))
+                      )
+                  )
+
+    <strong>Page:</strong> @(grid.PageIndex + 1) / @grid.PageCount, 
+    <strong>Records:</strong> @WebGridPageFirstItem(@grid) - @WebGridPageLastItem(@grid) of @grid.TotalRowCount
+
+    
+    @if (@grid.HasSelection)
+    {
+        @RenderPage("~/views/home/_partial_view.cshtml", new { Employee = grid.SelectedRow })
+    }
+    
+</div>
+
+@section script{
+<script type="text/javascript">
+    $(function () {
+        $('#MyGrid tbody:first').append(
+        '<tr class="total-row"><td></td>\
+         <td></td><td></td><td></td>\
+         <td><strong>Total:</strong></td>\
+         <td>@string.Format("${0:n0}", @salaryPageSum)</td>\
+         <td>@string.Format("${0:n0}", @taxPageSum)</td>\
+         <td></td><td></td><td></td></tr>');
+    });
+</script>
+}

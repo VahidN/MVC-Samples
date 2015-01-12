@@ -1,0 +1,24 @@
+﻿@model MvcApplication8.Models.Employee
+
+    <tr>
+        <td>
+            @Html.DisplayFor(x => x.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(x => x.Salary)
+        </td>
+        <td>
+            @Html.DisplayFor(x => x.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(x => x.IsMale)
+        </td>
+        <td>
+            @Html.DisplayFor(x => x.AddDate)            
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = Model.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
+        </td>
+    </tr>

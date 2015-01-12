@@ -1,0 +1,95 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<h2>
+    Index</h2>
+<div id="EmployeeInfo">
+    @Ajax.ActionLink(
+     linkText: "Get Employee-1 info",
+     actionName: "EmployeeInfo",
+     controllerName: "Home",
+     routeValues: new { id = 1 },
+     ajaxOptions: new AjaxOptions
+                  {
+                      HttpMethod = "POST",
+                      InsertionMode = InsertionMode.Replace,
+                      UpdateTargetId = "EmployeeInfo",
+                      LoadingElementId = "Progress"
+                  })
+</div>
+<div id="Progress" style="display: none">
+    <img src="@Url.Content("~/Content/images/loading.gif")" alt="loading..."  />
+</div>
+<a href="#" onclick="LoadEmployeeInfo()">Get Employee-1 info</a>
+<br />
+<a href="#" onclick="LoadEmployeeInfoData()">Get Employee-2 info</a>
+
+@using (Ajax.BeginForm(actionName: "SearchEmployeeInfo",
+                       controllerName: "Home", 
+                       ajaxOptions: new AjaxOptions
+                                    {
+                                         HttpMethod = "POST",
+                                         InsertionMode = InsertionMode.Replace,
+                                         UpdateTargetId = "EmployeeInfo",
+                                         LoadingElementId = "Progress"                                         
+                                    }))
+    {
+      @Html.TextBox("data")
+      <input type="submit" value="Search" />
+    }
+
+
+@section javascript
+{
+    <script type="text/javascript">
+        function LoadEmployeeInfoData() {
+            showProgress();
+            $.ajax({
+                type: "POST",
+                url: "/Home/EmployeeInfoData",
+                data: JSON.stringify({ id: 1 }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                // controller is returning the json data
+                success: function (result) {
+                    if (result) {
+                        alert(result.Id + ' - ' + result.Name);
+                    }
+                    hideProgress();
+                },
+                error: function (result) {
+                    alert(result.status + ' ' + result.statusText);
+                    hideProgress();
+                }
+            });
+        }
+
+        function LoadEmployeeInfo() {
+            showProgress();
+            $.ajax({
+                type: "POST",
+                url: "/Home/EmployeeInfo",
+                data: JSON.stringify({ id: 1 }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                // controller is returning a simple text, not json
+                complete: function (xhr, status) {
+                    var data = xhr.responseText;
+                    if (status === 'error' || !data) {
+                        //handleError                        
+                    }
+                    else {
+                        $('#EmployeeInfo').html(data);
+                    }
+                    hideProgress();
+                }
+            });
+        }
+        function showProgress() {
+            $('#Progress').css("display", "block");
+        }
+        function hideProgress() {
+            $('#Progress').css("display", "none");
+        }
+    </script>
+}

@@ -1,0 +1,61 @@
+﻿@model MvcApplication6.Models.Account
+@{
+    ViewBag.Title = "Index";
+}
+<h2>
+    Login</h2>
+@using (Html.BeginForm(actionName: "LoginResult", controllerName: "Login"))
+{
+    <fieldset>
+        <legend>Test LoginResult()</legend>
+        <p>
+            Name: @Html.TextBoxFor(m => m.Name)</p>
+        <p>
+            Password: @Html.PasswordFor(m => m.Password)</p>
+        <input type="submit" value="Login" />
+    </fieldset>
+}
+@using (Html.BeginForm(actionName: "LoginResultWithParams", controllerName: "Login"))
+{
+    <fieldset>
+        <legend>Test LoginResult(string name, string password)</legend>
+        <p>
+            Name: @Html.TextBoxFor(m => m.Name)</p>
+        <p>
+            Password: @Html.PasswordFor(m => m.Password)</p>
+        <input type="submit" value="Login" />
+    </fieldset>
+}
+@using (Html.BeginForm(actionName: "Login", controllerName: "Login"))
+{
+    <fieldset>
+        <legend>Test Login(Account acc)</legend>
+        <p>
+            Name: @Html.TextBoxFor(m => m.Name)</p>
+        <p>
+            Password: @Html.PasswordFor(m => m.Password)</p>
+        <input type="submit" value="Login" />
+    </fieldset>
+}
+@using (Html.BeginForm(actionName: "LoginResultUpdateFormCollection", controllerName: "Login"))
+{
+    <fieldset>
+        <legend>Test LoginResultUpdateFormCollection(FormCollection collection)</legend>
+        <p>
+            Name: @Html.TextBoxFor(m => m.Name)</p>
+        <p>
+            Password: @Html.PasswordFor(m => m.Password)</p>
+        <input type="submit" value="Login" />
+    </fieldset>
+}
+@using (Html.BeginForm(actionName: "LoginResultUpdateModel", controllerName: "Login"))
+{
+    <fieldset>
+        <legend>Test LoginResultUpdateModel()</legend>
+        <p>
+            Name: @Html.TextBoxFor(m => m.Name)</p>
+        <p>
+            Password: @Html.PasswordFor(m => m.Password)</p>
+        <input type="submit" value="Login" />
+    </fieldset>
+}

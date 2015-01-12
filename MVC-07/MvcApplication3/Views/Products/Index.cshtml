@@ -1,0 +1,41 @@
+﻿@model List<MvcApplication3.Models.Product>
+@{
+    ViewBag.Title = "Index";
+    var number = 12;
+    var data = "some text...";    
+    <h2>line1: @data</h2>
+    
+    @:line-2: @data <br />
+    <text>line-3:</text> @data
+}
+<br />
+site@(data)
+<br />
+@@name
+<br />
+@(number/10)
+<br />
+First product: @Model.First().Name
+<br />
+@if (@number>10)
+{
+  <span>@data</span>
+}
+else
+{
+  <text>Plain Text</text>
+}
+<br />
+@foreach (var item in Model)
+{
+    <li>@item.Name, $@item.Price </li>
+}
+
+@*
+    A Razor Comment
+*@
+
+<br />
+@("First product: " + Model.First().Name)
+<br />
+<img src="@(number).jpg" />

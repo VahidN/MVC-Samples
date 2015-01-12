@@ -1,0 +1,36 @@
+﻿@model IEnumerable<MvcApplication8.Models.Employee>
+
+@{
+    ViewBag.Title = "EmployeeList";
+}
+
+<h2>EmployeeList</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Salary
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+            IsMale
+        </th>
+        <th>
+            AddDate
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    @Html.Partial("_EmployeeItem", item)
+}
+
+</table>

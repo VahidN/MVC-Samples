@@ -1,0 +1,10 @@
+﻿@using MvcApplication4.Models
+@helper GetProductsList(List<Product> products)
+{
+    <ul>
+        @foreach (var item in products)
+        {
+            <li>@item.Name ($@item.Price)</li>
+        }
+    </ul>
+}

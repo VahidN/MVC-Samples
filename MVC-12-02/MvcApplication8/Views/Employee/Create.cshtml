@@ -1,0 +1,15 @@
+﻿@model MvcApplication8.Models.Employee
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create An Employee</h2>
+
+@Html.Action(actionName: "ShowMenu", controllerName: "Menu", routeValues: new { options = "some data..." })
+
+@using (Html.BeginForm(actionName: "Create", controllerName: "Employee"))
+{
+    @Html.ValidationSummary(true)
+    @Html.EditorForModel()
+    <input type="submit" value="Save" />
+}

@@ -1,0 +1,19 @@
+﻿@model MvcApplication19.Models.Employee
+@{
+    ViewBag.Title = "Index";
+}
+<h2>
+    Index</h2>
+<fieldset>
+    <legend>Employee</legend>
+    <div class="display-label">
+        @MvcApplication19.Views.Home.Index_cshtml.Name
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Employee Info</legend>
+    @Html.DisplayForModel()
+</fieldset>

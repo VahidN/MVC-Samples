@@ -1,0 +1,14 @@
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
+
+@using MvcApplication5.Models
+
+@helper GetProductsList(WebViewPage page, List<Product> products)
+    {
+    <ul>
+        @foreach (var item in products)
+        {
+            <li> @page.Html.ActionLink(item.Name, "Details", new { id = item.ProductNumber })</li>
+        }
+    </ul>
+}

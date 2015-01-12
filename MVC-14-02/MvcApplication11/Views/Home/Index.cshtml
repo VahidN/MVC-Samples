@@ -1,0 +1,8 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<h2>
+    Index</h2>
+@Html.ActionLink(linkText: "Home", actionName: "Index", controllerName: "Home")
+@Html.ActionLink(linkText: "Home", actionName: "Index", controllerName: "Home",
+                 routeValues: new { area = "Admin" } , htmlAttributes: null)

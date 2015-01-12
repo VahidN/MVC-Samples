@@ -1,0 +1,31 @@
+﻿@using MvcApplication5.Models
+@model MvcApplication5.Models.Products
+@{
+    ViewBag.Title = "Index";
+}
+
+@helper EmitCleanUnicodeUrl(MvcHtmlString data)
+{
+    @Html.Raw(HttpUtility.UrlDecode(data.ToString()))
+}
+
+@helper GetProductsList(List<Product> products)
+    {
+    <ul>
+        @foreach (var item in products)
+        {
+            <li>Clean @EmitCleanUnicodeUrl(Html.ActionLink(item.Name, "Details", new { id = item.ProductNumber , text = item.Name }))</li>
+            <li>Normal @Html.ActionLink(item.Name, "Details", new { id = item.ProductNumber })</li>
+        }
+    </ul>
+}
+<h2>
+    Index</h2>
+@Html.ActionLink("About us", "Index", "About")
+
+@GetProductsList(@Model)
+
+
+@*
+@MyHelpers.GetProductsList(this, @Model)
+*@
